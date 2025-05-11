@@ -39,4 +39,10 @@ ENV/
 *.wmv
 *.flv
 *.mkv
-test.py 
+test.py
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+*.env.docker 

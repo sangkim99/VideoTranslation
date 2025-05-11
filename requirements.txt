@@ -1,10 +1,21 @@
-grpcio==1.71.0
-grpcio-tools==1.71.0
-protobuf>=5.26.1,<6.0dev
+# --- 필수 패키지 ---
 mediapipe==0.10.21
-opencv-python==4.11.0.86
-numpy==1.26.4
-python-dotenv==1.0.1
-fastapi==0.115.12
+protobuf==4.25.3        # mediapipe가 요구 (protobuf <5)
+grpcio==1.60.1
+grpcio-tools==1.54.0    # protobuf 4.x와 호환 가능한 마지막 안정 버전
+
+# --- FastAPI 관련 ---
+fastapi==0.111.0
 uvicorn==0.34.2
-pydantic==2.11.4 
+
+# --- 데이터 처리 ---
+numpy==1.26.4
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+
+# --- pydantic 관련 (FastAPI 호환) ---
+pydantic==2.11.4
+pydantic-core==2.16.3
+
+# --- 기타 ---
+python-dotenv==1.0.1
