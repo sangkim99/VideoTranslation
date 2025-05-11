@@ -5,8 +5,9 @@ PYTHON_VERSION := python3.10
 
 setup:
 	@echo "Setting up Python environment..."
-	sudo apt-get update
-	sudo apt-get install -y $(PYTHON_VERSION) $(PYTHON_VERSION)-venv $(PYTHON_VERSION)-pip
+	sudo yum update -y
+	sudo yum install -y make
+	sudo yum install -y $(PYTHON_VERSION) $(PYTHON_VERSION)-devel
 	python3 -m venv venv
 	. venv/bin/activate && pip install --upgrade pip
 	. venv/bin/activate && pip install -r requirements.txt
