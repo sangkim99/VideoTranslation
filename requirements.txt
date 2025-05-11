@@ -15,7 +15,6 @@ opencv-contrib-python==4.8.1.78
 
 # --- pydantic 관련 (FastAPI 호환) ---
 pydantic==2.11.4
-pydantic-core==2.16.3
 
 # --- 기타 ---
 python-dotenv==1.0.1
