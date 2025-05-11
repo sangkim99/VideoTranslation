@@ -8,6 +8,10 @@ setup:
 	sudo yum update -y
 	sudo yum install -y make
 	sudo yum install -y $(PYTHON_VERSION) $(PYTHON_VERSION)-devel
+	# OpenCV dependencies
+	sudo yum install -y mesa-libGL mesa-libGLU
+	sudo yum install -y libXext libXrender libXtst libXi
+	sudo yum install -y gcc gcc-c++ make
 	python3 -m venv venv
 	. venv/bin/activate && pip install --upgrade pip
 	. venv/bin/activate && pip install -r requirements.txt
