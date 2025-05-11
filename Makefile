@@ -1,7 +1,7 @@
 .PHONY: setup run
 
 # 기본 Python 버전
-PYTHON_VERSION := python3.10
+PYTHON_VERSION := python3.9
 
 setup:
 	@echo "Setting up Python environment..."
