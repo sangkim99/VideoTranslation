@@ -1,7 +1,7 @@
 .PHONY: setup run proto deploy
 
 # 기본 Python 버전
-PYTHON_VERSION := python3.9
+PYTHON_VERSION := python3.10
 
 PROTO_SRC_DIR := proto
 PROTO_GEN_DIR := gen
