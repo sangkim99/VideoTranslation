@@ -9,9 +9,9 @@ PROTO_GEN_DIR := gen
 setup:
 	@echo "🛠 Setting up Python environment on Ubuntu..."
 	sudo apt update -y
-	sudo apt install -y make build-essential python3.10 python3.10-dev python3.10-venv
+	sudo apt install -y make build-essential $(PYTHON_VERSION) $(PYTHON_VERSION)-dev $(PYTHON_VERSION)-venv
 	sudo apt install -y libgl1-mesa-glx libglu1-mesa libxext6 libxrender1 libxtst6 libxi6
-	python3.10 -m venv venv
+	$(PYTHON_VERSION) -m venv venv
 	. venv/bin/activate && pip install --upgrade pip
 	. venv/bin/activate && pip install --upgrade protobuf
 	. venv/bin/activate && pip install --upgrade grpcio grpcio-tools
@@ -33,4 +33,4 @@ run:
 	. venv/bin/activate && python main.py
 
 deploy: setup proto run
-	@echo "🚀 Deployment completed!"
+	@echo "🚀 Deployment completed!" 
