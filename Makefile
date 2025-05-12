@@ -10,7 +10,7 @@ setup:
 	@echo "🛠 Setting up Python environment on Ubuntu..."
 	sudo apt update -y
 	sudo apt install -y make build-essential $(PYTHON_VERSION) $(PYTHON_VERSION)-dev $(PYTHON_VERSION)-venv
-	sudo apt install -y libgl1-mesa-glx libglu1-mesa libxext6 libxrender1 libxtst6 libxi6
+	sudo apt install -y libgl1 libglu1-mesa libxext6 libxrender1 libxtst6 libxi6
 	$(PYTHON_VERSION) -m venv venv
 	. venv/bin/activate && pip install --upgrade pip
 	. venv/bin/activate && pip install --upgrade protobuf
