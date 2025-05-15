@@ -29,7 +29,7 @@ load_dotenv()
 #MIDDLEWARE_HOST = os.getenv("MIDDLEWARE_HOST")
 MIDDLEWARE_HOST = "localhost:8080"
 #API_HOST = os.getenv("API_HOST")
-API_HOST = "3.34.190.174:8080"
+API_HOST = "3.34.190.174:50051"
 
 # gRPC 채널 설정
 middleware_channel = grpc.insecure_channel(
