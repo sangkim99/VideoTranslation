@@ -199,7 +199,7 @@ def serve():
     middleware_pb2_grpc.add_ChangeMiddlwareServicer_to_server(
         ChangeMiddlwareServicer(), server
     )
-    server.add_insecure_port('[::]:8088')
+    server.add_insecure_port('0.0.0.0:8088')
     server.start()
     server.wait_for_termination()
 
