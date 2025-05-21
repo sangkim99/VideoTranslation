@@ -117,7 +117,7 @@ async def process_frame_stream(request_iterator):
         api_request_iterator = create_api_request_iterator(request_iterator)
         
         # API 서버로 스트림 전송 및 응답 수신
-        async for response in api_stub.StreamInquiries(api_request_iterator):
+        for response in api_stub.StreamInquiries(api_request_iterator):
             yield response
             
     except Exception as e:
