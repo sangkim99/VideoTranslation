@@ -39,7 +39,6 @@ ENV/
 *.wmv
 *.flv
 *.mkv
-test.py
 
 # Docker
 .dockerignore
