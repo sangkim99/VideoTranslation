@@ -140,7 +140,8 @@ async def create_api_request_iterator(request_iterator):
         api_request = inquiry_pb2.InquiryRequest(
             store_code=request.store_id,
             frame_data=coordinates,
-            inquiry_type=request.inquiry_type,
+            #inquiry_type=request.inquiry_type,
+            inquiry_type="inquiry",
             num=request.num
         )
         yield api_request

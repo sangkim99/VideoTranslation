@@ -17,7 +17,7 @@ from gen import error_pb2
 def test_frame_to_marking_data(video_path):
     # gRPC 채널 설정
     channel = grpc.insecure_channel(
-        '13.125.250.244:8088',
+        '43.201.26.161:8088',
         options=[
             ('grpc.max_send_message_length', 10 * 1024 * 1024),
             ('grpc.max_receive_message_length', 10 * 1024 * 1024)
@@ -49,7 +49,7 @@ def test_frame_to_marking_data(video_path):
             # gRPC 요청 생성
             request = middleware_pb2.FrameToMarkingDataRequest(
                 frame=[frame_bytes],
-                store_id="Y7JY8M5v",
+                store_id="5fjVwE8z",
                 inquiry_type="inquiry",
                 num=1
             )
