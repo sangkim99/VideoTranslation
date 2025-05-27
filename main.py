@@ -194,7 +194,8 @@ class ChangeMiddlwareServicer(middleware_pb2_grpc.ChangeMiddlwareServicer):
             api_request = inquiry_pb2.InquiryRequest(
                 store_code=request.store_id,
                 frame_data=coordinates,
-                inquiry_type=request.inquiry_type,
+                #inquiry_type=request.inquiry_type,
+                inquiry_type="inquiry",
                 num=request.num
             )
             yield api_request
