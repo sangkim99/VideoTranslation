@@ -140,8 +140,7 @@ async def create_api_request_iterator(request_iterator):
         api_request = inquiry_pb2.InquiryRequest(
             store_code=request.store_id,
             frame_data=coordinates,
-            #inquiry_type=request.inquiry_type,
-            inquiry_type="inquiry",
+            inquiry_type=request.inquiry_type,
             num=request.num
         )
         yield api_request
@@ -194,8 +193,7 @@ class ChangeMiddlwareServicer(middleware_pb2_grpc.ChangeMiddlwareServicer):
             api_request = inquiry_pb2.InquiryRequest(
                 store_code=request.store_id,
                 frame_data=coordinates,
-                #inquiry_type=request.inquiry_type,
-                inquiry_type="inquiry",
+                inquiry_type=request.inquiry_type,
                 num=request.num
             )
             yield api_request
