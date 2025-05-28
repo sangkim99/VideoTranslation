@@ -88,6 +88,7 @@ def process_frame_to_coordinates(frame_bytes):
     frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     
     # BGR -> RGB 변환
+    frame = cv2.flip(frame, 1)
     img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = hands.process(img_rgb)
 
