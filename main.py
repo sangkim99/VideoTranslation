@@ -129,13 +129,9 @@ async def create_api_request_iterator(request_iterator):
     API 서버로 전송할 요청 스트림 생성
     """
     for request in request_iterator:
-        try:
-            print("1. 새로운 프레임 수신")
-            # 프레임에서 좌표 추출 (손이 감지되지 않으면 더미 데이터 반환)
-            coordinates = process_frame_to_coordinates(request.frame[0])
-        except Exception as e:
-            print(f"오류: {e}")
-            coordinates = [0.0] * 78
+        print("1. 새로운 프레임 수신")
+        # 프레임에서 좌표 추출 (손이 감지되지 않으면 더미 데이터 반환)
+        coordinates = process_frame_to_coordinates(request.frame[0])
         
         # API 서버 요청 생성
         api_request = inquiry_pb2.InquiryRequest(

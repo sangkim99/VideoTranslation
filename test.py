@@ -93,5 +93,5 @@ def test_frame_to_marking_data(video_path):
     cap.release()
 
 if __name__ == "__main__":
-    video_path = "오류.mp4"
+    video_path = "아메리카노.mp4"
     test_frame_to_marking_data(video_path)
