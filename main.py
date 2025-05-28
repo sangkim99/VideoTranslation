@@ -196,7 +196,7 @@ class ChangeMiddlwareServicer(middleware_pb2_grpc.ChangeMiddlwareServicer):
             yield api_request
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=50))
     middleware_pb2_grpc.add_ChangeMiddlwareServicer_to_server(
         ChangeMiddlwareServicer(), server
     )
