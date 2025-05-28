@@ -21,12 +21,11 @@ from gen import service_pb2_grpc
 from gen import error_pb2
 from gen import inquiry_pb2
 
-# 환경변수 또는 직접 세팅
+# 환경변수 또는 고정 값
 load_dotenv()
 MIDDLEWARE_HOST = "localhost:8080"
 API_HOST = "3.34.190.174:50051"
 
-# FastAPI 인스턴스 생성
 app = FastAPI()
 
 # Mediapipe 초기화
