@@ -13,6 +13,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'gen'))
 from gen import middleware_pb2
 from gen import middleware_pb2_grpc
 from gen import error_pb2
+from google.protobuf.json_format import MessageToJson
 
 def test_frame_to_marking_data(video_path):
     # gRPC 채널 설정
@@ -61,18 +62,36 @@ def test_frame_to_marking_data(video_path):
     # gRPC 요청 전송 (하나의 스트림으로)
     try:
         response = stub.FrameToMarkingData(frame_iterator())
-        if response.error:
-            error_name = error_pb2.EError.Name(response.error)
-            print(f"응답: success={response.success}, error={error_name}")
-        else:
-            print(f"응답: success={response.success}")
+        
+        print("📦 전체 응답 내용 (raw proto object):")
+        print(response)
+
+        # ✅ JSON 형식으로 보기 (기본값도 포함)
+        print("\n📦 전체 응답 내용 (JSON 형식):")
+        json_str = MessageToJson(
+            response,
+            including_default_value_fields=True,  # success: false 같은 기본값도 출력됨
+            preserving_proto_field_name=True      # proto 정의 그대로 필드 이름 유지
+        )
+        print(json_str)
+
+        # ✅ 개별 필드 접근해서 출력
+        print("\n📋 응답 필드별 출력:")
+        print(f"▶ success: {getattr(response, 'success', '없음')}")
+        print(f"▶ error: {response.error} ({error_pb2.EError.Name(response.error)})")
+
+        # 필요 시 다른 필드도 여기에 추가
+        # 예: print(f"▶ message: {getattr(response, 'message', '없음')}")
+
+    except grpc.RpcError as e:
+        print(f"🚨 gRPC 에러 발생: {e}")
+        print(f"▶ status code: {e.code()}")
+        print(f"▶ details: {e.details()}")
     except Exception as e:
-        print(f"에러 발생: {e}")
-        if hasattr(e, 'details'):
-            print(f"상세 에러: {e.details()}")
+        print(f"🚨 일반 예외 발생: {e}")
 
     cap.release()
 
 if __name__ == "__main__":
-    video_path = "긍긍정.mp4"
+    video_path = "오류.mp4"
     test_frame_to_marking_data(video_path)
