@@ -24,7 +24,7 @@ app = FastAPI()
 # 환경 변수 설정
 load_dotenv()
 MIDDLEWARE_HOST = "localhost:8080"
-API_HOST = "3.34.190.174:50051"
+API_HOST = "13.125.207.254:50051"
 
 # gRPC 채널 설정
 middleware_channel = grpc.insecure_channel(

@@ -1,7 +1,6 @@
 import cv2
 import grpc
 import numpy as np
-import mediapipe as mp
 import sys
 import os
 import time
@@ -32,56 +31,49 @@ def test_frame_to_marking_data(video_path):
         print("❌ 비디오를 열 수 없습니다.")
         return
 
-    # 비디오 FPS 설정 (30fps)
-    cap.set(cv2.CAP_PROP_FPS, 30)
-    
-    # 프레임 스트림 생성
+    fps = 30  # 강제로 30fps 기준으로 전송
+    frame_interval = 1.0 / fps
+    frame_count = 0
+
     def frame_iterator():
+        nonlocal frame_count
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            # 프레임을 바이트로 변환
             _, buffer = cv2.imencode('.jpg', frame)
             frame_bytes = buffer.tobytes()
 
+            frame_count += 1
+            print(f"📤 {frame_count}번째 프레임 전송")
 
-            # gRPC 요청 생성
             request = middleware_pb2.FrameToMarkingDataRequest(
                 frame=[frame_bytes],
                 store_id="5fjVwE8z",
                 inquiry_type="inquiry",
-                num=1
+                num=frame_count
             )
             yield request
 
-            # 30fps에 맞춰 대기
-            time.sleep(1/30)
+            time.sleep(frame_interval)  # 정확히 1초에 30프레임 전송되도록 간격 유지
 
-    # gRPC 요청 전송 (하나의 스트림으로)
+        print(f"\n✅ 총 전송된 프레임 수: {frame_count}")
+
     try:
         response = stub.FrameToMarkingData(frame_iterator())
-        
-        print("📦 전체 응답 내용 (raw proto object):")
-        print(response)
 
-        # ✅ JSON 형식으로 보기 (기본값도 포함)
         print("\n📦 전체 응답 내용 (JSON 형식):")
         json_str = MessageToJson(
             response,
-            including_default_value_fields=True,  # success: false 같은 기본값도 출력됨
-            preserving_proto_field_name=True      # proto 정의 그대로 필드 이름 유지
+            including_default_value_fields=True,
+            preserving_proto_field_name=True
         )
         print(json_str)
 
-        # ✅ 개별 필드 접근해서 출력
         print("\n📋 응답 필드별 출력:")
         print(f"▶ success: {getattr(response, 'success', '없음')}")
         print(f"▶ error: {response.error} ({error_pb2.EError.Name(response.error)})")
-
-        # 필요 시 다른 필드도 여기에 추가
-        # 예: print(f"▶ message: {getattr(response, 'message', '없음')}")
 
     except grpc.RpcError as e:
         print(f"🚨 gRPC 에러 발생: {e}")
@@ -89,9 +81,9 @@ def test_frame_to_marking_data(video_path):
         print(f"▶ details: {e.details()}")
     except Exception as e:
         print(f"🚨 일반 예외 발생: {e}")
-
-    cap.release()
+    finally:
+        cap.release()
 
 if __name__ == "__main__":
-    video_path = "아메리카노.mp4"
+    video_path = "아메리카노.mp4"  # 실제 파일명 입력
     test_frame_to_marking_data(video_path)
