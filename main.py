@@ -117,8 +117,8 @@ class ChangeMiddlwareServicer(middleware_pb2_grpc.ChangeMiddlwareServicer):
 
     def create_api_request_iterator(self, request_iterator):
         for request in request_iterator:
-            self.frame_count += 1
-            print(f"🧾 {self.frame_count}번째 프레임 수신")
+            #self.frame_count += 1
+            #print(f"🧾 {self.frame_count}번째 프레임 수신")
             future = executor.submit(process_frame_to_coordinates, request.frame[0])
             try:
                 coordinates = future.result(timeout=1.5)
